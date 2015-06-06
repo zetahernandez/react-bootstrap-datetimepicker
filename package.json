@@ -26,7 +26,8 @@
   "author": "Loïc CHOLLIER <loic@chollier.com>",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=0.12"
+    "react": ">=0.12",
+    "react-bootstrap": ">0.16.1"
   },
   "devDependencies": {
     "envify": "~3.2.0",
@@ -51,6 +52,6 @@
   },
   "dependencies": {
     "moment": "^2.8.2",
-    "react-bootstrap": "^0.16.1"
+    "react-bootstrap": ">0.16.1"
   }
 }

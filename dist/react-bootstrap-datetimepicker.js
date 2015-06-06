@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"), require("moment"), require("ReactBootstrap"));
+		module.exports = factory(require("ReactBootstrap"), require("React"), require("moment"));
 	else if(typeof define === 'function' && define.amd)
-		define(["React", "moment", "ReactBootstrap"], factory);
+		define(["ReactBootstrap", "React", "moment"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactBootstrapDatetimepicker"] = factory(require("React"), require("moment"), require("ReactBootstrap"));
+		exports["ReactBootstrapDatetimepicker"] = factory(require("ReactBootstrap"), require("React"), require("moment"));
 	else
-		root["ReactBootstrapDatetimepicker"] = factory(root["React"], root["moment"], root["ReactBootstrap"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__) {
+		root["ReactBootstrapDatetimepicker"] = factory(root["ReactBootstrap"], root["React"], root["moment"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,15 +63,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var DateTimeField, DateTimePicker, Glyphicon, React, moment;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(3);
 
-	DateTimePicker = __webpack_require__(5);
+	DateTimePicker = __webpack_require__(4);
 
-	moment = __webpack_require__(3);
+	moment = __webpack_require__(7);
 
-	var Glyphicon = __webpack_require__(4).Glyphicon;
+	var Glyphicon = __webpack_require__(2).Glyphicon;
+	var Input = __webpack_require__(2).Input;
 
-	var Constants = __webpack_require__(6);
+	var Constants = __webpack_require__(12);
 
 	DateTimeField = React.createClass({displayName: "DateTimeField",
 	  propTypes: {
@@ -160,8 +161,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var target = e.target;
 	    if (target.className && !target.className.match(/disabled/g)) {
 	      var month;
-	      if(target.className.includes("new")) month = this.state.viewDate.month() + 1;
-	      else if(target.className.includes("old")) month = this.state.viewDate.month() - 1;
+	      if(target.className.indexOf("new") >= 0) month = this.state.viewDate.month() + 1;
+	      else if(target.className.indexOf("old") >= 0) month = this.state.viewDate.month() - 1;
 	      else month = this.state.viewDate.month();
 	      return this.setState({
 	        selectedDate: this.state.viewDate.clone().month(month).date(parseInt(e.target.innerHTML)).hour(this.state.selectedDate.hours()).minute(this.state.selectedDate.minutes())
@@ -306,9 +307,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        top: gBCR.top + window.pageYOffset - document.documentElement.clientTop,
 	        left: gBCR.left + window.pageXOffset - document.documentElement.clientLeft
 	      };
-	      offset.top = offset.top + this.refs.datetimepicker.getDOMNode().offsetHeight;
+	      offset.top = offset.top + this.refs.datetimepicker.getInputDOMNode().offsetHeight;
 	      scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-	      placePosition = this.props.direction === 'up' ? 'top' : this.props.direction === 'bottom' ? 'bottom' : this.props.direction === 'auto' ? offset.top + this.refs.widget.getDOMNode().offsetHeight > window.offsetHeight + scrollTop && this.refs.widget.offsetHeight + this.refs.datetimepicker.getDOMNode().offsetHeight > offset.top ? 'top' : 'bottom' : void 0;
+	      placePosition = this.props.direction === 'up' ? 'top' : this.props.direction === 'bottom' ? 'bottom' : this.props.direction === 'auto' ? offset.top + this.refs.widget.getDOMNode().offsetHeight > window.offsetHeight + scrollTop && this.refs.widget.offsetHeight + this.refs.datetimepicker.getInputDOMNode().offsetHeight > offset.top ? 'top' : 'bottom' : void 0;
 	      if (placePosition === 'top') {
 	        offset.top = -this.refs.widget.getDOMNode().offsetHeight - this.getDOMNode().clientHeight - 2;
 	        classes["top"] = true;
@@ -392,11 +393,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                  setSelectedHour: this.setSelectedHour, 
 	                  setSelectedMinute: this.setSelectedMinute, 
 	                  togglePicker: this.togglePicker, 
-	                  togglePeriod: this.togglePeriod}
-	            ), 
-	            React.createElement("div", {className: "input-group date", ref: "datetimepicker"}, 
-	              React.createElement("input", React.__spread({type: "text", className: "form-control", onChange: this.onChange, value: this.state.inputValue},  this.props.inputProps)), 
-	              React.createElement("span", {className: "input-group-addon", onClick: this.onClick, onBlur: this.onBlur, ref: "dtpbutton"}, React.createElement(Glyphicon, {glyph: this.state.buttonIcon}))
+	                  togglePeriod: this.togglePeriod}), 
+	            React.createElement(Input, React.__spread({type: "text", ref: "datetimepicker", onChange: this.onChange, value: this.state.inputValue},  this.props.inputProps, {addonAfter: React.createElement("span", {ref: "dtpbutton", onClick: this.onClick, onBlur: this.onBlur}, React.createElement(Glyphicon, {glyph: this.state.buttonIcon}))})
 	            )
 	          )
 	    );
@@ -422,23 +420,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var DateTimePicker, DateTimePickerDate, DateTimePickerTime, Glyphicon, React;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(3);
 
-	DateTimePickerDate = __webpack_require__(7);
+	DateTimePickerDate = __webpack_require__(5);
 
-	DateTimePickerTime = __webpack_require__(8);
+	DateTimePickerTime = __webpack_require__(10);
 
-	var Glyphicon = __webpack_require__(4).Glyphicon;
+	var Glyphicon = __webpack_require__(2).Glyphicon;
 
-	var Constants = __webpack_require__(6);
+	var Constants = __webpack_require__(12);
 
 	DateTimePicker = React.createClass({displayName: "DateTimePicker",
 	  propTypes: {
@@ -549,28 +541,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	    MODE_DATE: 'date',
-	    MODE_DATETIME: 'datetime',
-	    MODE_TIME: 'time'
-	};
-
-/***/ },
-/* 7 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateTimePickerDate, DateTimePickerDays, DateTimePickerMonths, DateTimePickerYears, React;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(3);
 
-	DateTimePickerDays = __webpack_require__(9);
+	DateTimePickerDays = __webpack_require__(6);
 
-	DateTimePickerMonths = __webpack_require__(10);
+	DateTimePickerMonths = __webpack_require__(8);
 
-	DateTimePickerYears = __webpack_require__(11);
+	DateTimePickerYears = __webpack_require__(9);
 
 	DateTimePickerDate = React.createClass({displayName: "DateTimePickerDate",
 	  propTypes: {
@@ -708,140 +690,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DateTimePickerHours, DateTimePickerMinutes, DateTimePickerTime, Glyphicon, React;
-
-	React = __webpack_require__(2);
-
-	DateTimePickerMinutes = __webpack_require__(12);
-
-	DateTimePickerHours = __webpack_require__(13);
-
-	var Glyphicon = __webpack_require__(4).Glyphicon;
-
-	var Constants = __webpack_require__(6);
-
-	DateTimePickerTime = React.createClass({displayName: "DateTimePickerTime",
-	  propTypes: {
-	    setSelectedHour: React.PropTypes.func.isRequired,
-	    setSelectedMinute: React.PropTypes.func.isRequired,
-	    subtractHour: React.PropTypes.func.isRequired,
-	    addHour: React.PropTypes.func.isRequired,
-	    subtractMinute: React.PropTypes.func.isRequired,
-	    addMinute: React.PropTypes.func.isRequired,
-	    viewDate: React.PropTypes.object.isRequired,
-	    selectedDate: React.PropTypes.object.isRequired,
-	    togglePeriod: React.PropTypes.func.isRequired,
-	    mode: React.PropTypes.oneOf([Constants.MODE_DATE, Constants.MODE_DATETIME, Constants.MODE_TIME])
-	  },
-	  getInitialState: function() {
-	    return {
-	      minutesDisplayed: false,
-	      hoursDisplayed: false
-	    };
-	  },
-	  goBack: function() {
-	    return this.setState({
-	      minutesDisplayed: false,
-	      hoursDisplayed: false
-	    });
-	  },
-	  showMinutes: function() {
-	    return this.setState({
-	      minutesDisplayed: true
-	    });
-	  },
-	  showHours: function() {
-	    return this.setState({
-	      hoursDisplayed: true
-	    });
-	  },
-	  renderMinutes: function() {
-	    if (this.state.minutesDisplayed) {
-	      return React.createElement(DateTimePickerMinutes, React.__spread({},  this.props, {onSwitch: this.goBack}));
-	    } else {
-	      return null;
-	    }
-	  },
-	  renderHours: function() {
-	    if (this.state.hoursDisplayed) {
-	      return React.createElement(DateTimePickerHours, React.__spread({},  this.props, {onSwitch: this.goBack}));
-	    } else {
-	      return null;
-	    }
-	  },
-	  renderPicker: function() {
-	    if (!this.state.minutesDisplayed && !this.state.hoursDisplayed) {
-	      return (
-	      React.createElement("div", {className: "timepicker-picker"}, 
-	        React.createElement("table", {className: "table-condensed"}, 
-	          React.createElement("tbody", null, 
-	            React.createElement("tr", null, 
-	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.addHour}, React.createElement(Glyphicon, {glyph: "chevron-up"}))), 
-
-	              React.createElement("td", {className: "separator"}), 
-
-	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.addMinute}, React.createElement(Glyphicon, {glyph: "chevron-up"}))), 
-
-	              React.createElement("td", {className: "separator"})
-	            ), 
-
-	            React.createElement("tr", null, 
-	              React.createElement("td", null, React.createElement("span", {className: "timepicker-hour", onClick: this.showHours}, this.props.selectedDate.format('h'))), 
-
-	              React.createElement("td", {className: "separator"}, ":"), 
-
-	              React.createElement("td", null, React.createElement("span", {className: "timepicker-minute", onClick: this.showMinutes}, this.props.selectedDate.format('mm'))), 
-
-	              React.createElement("td", {className: "separator"}), 
-
-	              React.createElement("td", null, React.createElement("button", {className: "btn btn-primary", onClick: this.props.togglePeriod, type: "button"}, this.props.selectedDate.format('A')))
-	            ), 
-
-	            React.createElement("tr", null, 
-	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.subtractHour}, React.createElement(Glyphicon, {glyph: "chevron-down"}))), 
-
-	              React.createElement("td", {className: "separator"}), 
-
-	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.subtractMinute}, React.createElement(Glyphicon, {glyph: "chevron-down"}))), 
-
-	              React.createElement("td", {className: "separator"})
-	            )
-	          )
-	        )
-	      )
-	      );
-	    } else {
-	      return '';
-	    }
-	  },
-	  render: function() {
-	    return (
-	        React.createElement("div", {className: "timepicker"}, 
-	          this.renderPicker(), 
-
-	          this.renderHours(), 
-
-	          this.renderMinutes()
-	        )
-	    );
-	  }
-	});
-
-	module.exports = DateTimePickerTime;
-
-
-/***/ },
-/* 9 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateTimePickerDays, React, moment;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(3);
 
-	moment = __webpack_require__(3);
+	moment = __webpack_require__(7);
 
 	DateTimePickerDays = React.createClass({displayName: "DateTimePickerDays",
 	  propTypes: {
@@ -960,14 +816,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateTimePickerMonths, React, moment;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(3);
 
-	moment = __webpack_require__(3);
+	moment = __webpack_require__(7);
 
 	DateTimePickerMonths = React.createClass({displayName: "DateTimePickerMonths",
 	  propTypes: {
@@ -1023,12 +885,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateTimePickerYears, React;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(3);
 
 	DateTimePickerYears = React.createClass({displayName: "DateTimePickerYears",
 	  propTypes: {
@@ -1087,14 +949,140 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DateTimePickerHours, DateTimePickerMinutes, DateTimePickerTime, Glyphicon, React;
+
+	React = __webpack_require__(3);
+
+	DateTimePickerMinutes = __webpack_require__(11);
+
+	DateTimePickerHours = __webpack_require__(13);
+
+	var Glyphicon = __webpack_require__(2).Glyphicon;
+
+	var Constants = __webpack_require__(12);
+
+	DateTimePickerTime = React.createClass({displayName: "DateTimePickerTime",
+	  propTypes: {
+	    setSelectedHour: React.PropTypes.func.isRequired,
+	    setSelectedMinute: React.PropTypes.func.isRequired,
+	    subtractHour: React.PropTypes.func.isRequired,
+	    addHour: React.PropTypes.func.isRequired,
+	    subtractMinute: React.PropTypes.func.isRequired,
+	    addMinute: React.PropTypes.func.isRequired,
+	    viewDate: React.PropTypes.object.isRequired,
+	    selectedDate: React.PropTypes.object.isRequired,
+	    togglePeriod: React.PropTypes.func.isRequired,
+	    mode: React.PropTypes.oneOf([Constants.MODE_DATE, Constants.MODE_DATETIME, Constants.MODE_TIME])
+	  },
+	  getInitialState: function() {
+	    return {
+	      minutesDisplayed: false,
+	      hoursDisplayed: false
+	    };
+	  },
+	  goBack: function() {
+	    return this.setState({
+	      minutesDisplayed: false,
+	      hoursDisplayed: false
+	    });
+	  },
+	  showMinutes: function() {
+	    return this.setState({
+	      minutesDisplayed: true
+	    });
+	  },
+	  showHours: function() {
+	    return this.setState({
+	      hoursDisplayed: true
+	    });
+	  },
+	  renderMinutes: function() {
+	    if (this.state.minutesDisplayed) {
+	      return React.createElement(DateTimePickerMinutes, React.__spread({},  this.props, {onSwitch: this.goBack}));
+	    } else {
+	      return null;
+	    }
+	  },
+	  renderHours: function() {
+	    if (this.state.hoursDisplayed) {
+	      return React.createElement(DateTimePickerHours, React.__spread({},  this.props, {onSwitch: this.goBack}));
+	    } else {
+	      return null;
+	    }
+	  },
+	  renderPicker: function() {
+	    if (!this.state.minutesDisplayed && !this.state.hoursDisplayed) {
+	      return (
+	      React.createElement("div", {className: "timepicker-picker"}, 
+	        React.createElement("table", {className: "table-condensed"}, 
+	          React.createElement("tbody", null, 
+	            React.createElement("tr", null, 
+	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.addHour}, React.createElement(Glyphicon, {glyph: "chevron-up"}))), 
+
+	              React.createElement("td", {className: "separator"}), 
+
+	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.addMinute}, React.createElement(Glyphicon, {glyph: "chevron-up"}))), 
+
+	              React.createElement("td", {className: "separator"})
+	            ), 
+
+	            React.createElement("tr", null, 
+	              React.createElement("td", null, React.createElement("span", {className: "timepicker-hour", onClick: this.showHours}, this.props.selectedDate.format('h'))), 
+
+	              React.createElement("td", {className: "separator"}, ":"), 
+
+	              React.createElement("td", null, React.createElement("span", {className: "timepicker-minute", onClick: this.showMinutes}, this.props.selectedDate.format('mm'))), 
+
+	              React.createElement("td", {className: "separator"}), 
+
+	              React.createElement("td", null, React.createElement("button", {className: "btn btn-primary", onClick: this.props.togglePeriod, type: "button"}, this.props.selectedDate.format('A')))
+	            ), 
+
+	            React.createElement("tr", null, 
+	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.subtractHour}, React.createElement(Glyphicon, {glyph: "chevron-down"}))), 
+
+	              React.createElement("td", {className: "separator"}), 
+
+	              React.createElement("td", null, React.createElement("a", {className: "btn", onClick: this.props.subtractMinute}, React.createElement(Glyphicon, {glyph: "chevron-down"}))), 
+
+	              React.createElement("td", {className: "separator"})
+	            )
+	          )
+	        )
+	      )
+	      );
+	    } else {
+	      return '';
+	    }
+	  },
+	  render: function() {
+	    return (
+	        React.createElement("div", {className: "timepicker"}, 
+	          this.renderPicker(), 
+
+	          this.renderHours(), 
+
+	          this.renderMinutes()
+	        )
+	    );
+	  }
+	});
+
+	module.exports = DateTimePickerTime;
+
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateTimePickerMinutes, React;
 
-	React = __webpack_require__(2);
-	var Glyphicon = __webpack_require__(4).Glyphicon;
-	var Constants = __webpack_require__(6);
+	React = __webpack_require__(3);
+	var Glyphicon = __webpack_require__(2).Glyphicon;
+	var Constants = __webpack_require__(12);
 	  
 	DateTimePickerMinutes = React.createClass({displayName: "DateTimePickerMinutes",
 	  propTypes: {
@@ -1158,14 +1146,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	    MODE_DATE: 'date',
+	    MODE_DATETIME: 'datetime',
+	    MODE_TIME: 'time'
+	};
+
+/***/ },
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DateTimePickerHours, React;
 
-	React = __webpack_require__(2);
-	var Glyphicon = __webpack_require__(4).Glyphicon;
-	var Constants = __webpack_require__(6);
+	React = __webpack_require__(3);
+	var Glyphicon = __webpack_require__(2).Glyphicon;
+	var Constants = __webpack_require__(12);
 
 	DateTimePickerHours = React.createClass({displayName: "DateTimePickerHours",
 	  propTypes: {
